@@ -1,5 +1,6 @@
 
 
+
 # David Kalu's Frontend Engineer Portfolio
 
 ## Overview
@@ -65,4 +66,3 @@ Once the foundation is ready, you can easily add:
 - About Me page with your story and philosophy
 - Resume/Skills page with downloadable PDF
 - Working contact form with email service integration
-
