@@ -75,20 +75,20 @@ const AboutSection = () => {
               transition={{ delay: 0.2 }}
             >
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a <span className="text-foreground font-medium">Frontend Engineer</span> with a 
-                passion for building products that make a difference. With over 4 years of experience, 
-                I've worked with startups and enterprises to create scalable web applications.
+                I am an experienced <span className="text-foreground font-medium">Frontend Web Developer</span> driven 
+                by building responsive, user-friendly web applications that balance both user needs 
+                and business goals.
               </p>
               
               <p className="text-muted-foreground leading-relaxed">
-                Beyond code, I believe in the power of great user experience. I obsess over the 
-                little details — smooth animations, fast load times, and interfaces that just 
-                <span className="italic"> feel right</span>.
+                Over the past two years, I've worked with startups and small teams, collaborating 
+                closely with developers, designers, and product managers to turn ideas into functional 
+                products.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing to 
-                open source, or writing about web development.
+                My technical toolkit includes React.js, Next.js, TypeScript, and Tailwind CSS for 
+                creating clean, interactive interfaces.
               </p>
 
               {/* Fun facts */}

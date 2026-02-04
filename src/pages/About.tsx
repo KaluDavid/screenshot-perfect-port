@@ -9,6 +9,8 @@ import {
   ExternalLink,
   Briefcase,
   Calendar,
+  GraduationCap,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -20,52 +22,106 @@ interface WorkExperience {
   company: string;
   role: string;
   period: string;
+  type: string;
   location: string;
   description: string[];
   technologies: string[];
 }
 
-// Placeholder work experience - will be updated with real data
 const workExperience: WorkExperience[] = [
   {
     id: 1,
-    company: "SyncU",
-    role: "Frontend Engineer",
-    period: "2023 - Present",
-    location: "Lagos, Nigeria",
+    company: "Spot'D",
+    role: "Frontend Web Developer",
+    period: "April 2025 - Present",
+    type: "Part-time",
+    location: "Remote",
     description: [
-      "Building pixel-perfect user interfaces and responsive web applications",
-      "Implementing scalable frontend architecture with React, TypeScript, and Tailwind CSS",
-      "Focusing on performance optimization, accessibility, and smooth user experiences",
+      "Building an influencer marketing platform with Next.js, TypeScript, and Tailwind CSS",
+      "Developed the 'Coming Soon' page ensuring responsiveness and brand alignment",
+      "Collaborated with frontend team to implement landing page directly from Figma",
+      "Partner with product management to align features with business goals",
+      "Integrate backend APIs to deliver seamless functionality",
     ],
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "REST APIs"],
   },
   {
     id: 2,
-    company: "Previous Company",
-    role: "Frontend Developer",
-    period: "2021 - 2023",
-    location: "Remote",
+    company: "SyncU",
+    role: "Frontend Web Developer",
+    period: "Feb. 2024 - Jan. 2025",
+    type: "Seasonal",
+    location: "Nigeria",
     description: [
-      "Developed and maintained responsive web applications",
-      "Collaborated with design teams to implement UI/UX improvements",
-      "Participated in code reviews and mentored junior developers",
+      "Built a responsive web platform from the ground up with a diverse team",
+      "Wrote clean, functional UI using React, TypeScript, and Tailwind CSS",
+      "Worked closely with designers to bring Figma designs to life",
+      "Ensured pixel-perfect implementations across all screen sizes",
     ],
-    technologies: ["React", "JavaScript", "CSS", "REST APIs"],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Figma"],
   },
   {
     id: 3,
-    company: "Freelance",
-    role: "Web Developer",
-    period: "2020 - 2021",
-    location: "Lagos, Nigeria",
+    company: "Tevahrod Cosmetic Paints",
+    role: "Frontend Web Developer & UX Researcher",
+    period: "Feb. 2024 - March 2024",
+    type: "Freelance",
+    location: "Nigeria",
     description: [
-      "Built custom websites for small businesses and startups",
-      "Handled end-to-end project delivery from design to deployment",
-      "Maintained long-term client relationships",
+      "Developed an e-commerce website showcasing company products",
+      "Designed sketches and wireframes to plan layout and functionality",
+      "Created flow charts to visualize website structures and user flows",
+      "Collaborated with clients to understand requirements and ensure satisfaction",
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "WordPress"],
+    technologies: ["HTML", "CSS", "UX Research", "Wireframing"],
   },
+  {
+    id: 4,
+    company: "The Just Projects - Cohort 2",
+    role: "Frontend Web Developer (Team Lead)",
+    period: "July 2023 - Aug. 2023",
+    type: "Project",
+    location: "Nigeria",
+    description: [
+      "Led a small team of developers to build a travel website",
+      "Translated Figma designs into fully responsive webpages",
+      "Managed tasks, kept timelines on track, and ensured quality delivery",
+      "Demonstrated ownership, consistency, and follow-through",
+    ],
+    technologies: ["HTML", "CSS", "JavaScript", "Team Leadership"],
+  },
+  {
+    id: 5,
+    company: "Jobberman Nigeria",
+    role: "Soft-skills Training",
+    period: "Aug. 2022 - Sept. 2022",
+    type: "Training",
+    location: "Nigeria",
+    description: [
+      "Refined soft skills in a dynamic professional environment",
+      "Enhanced ability to work seamlessly within cross-functional teams",
+      "Developed time management and problem-solving skills",
+    ],
+    technologies: ["Communication", "Collaboration", "Adaptability"],
+  },
+];
+
+const certifications = [
+  "Frontend Web Development | TheJust Projects – Dec. 2023",
+  "Frontend Web Development | Side Hustle – September 2022",
+];
+
+const technologies = [
+  "Next.js",
+  "TypeScript",
+  "React.js",
+  "Tailwind CSS",
+  "Sass",
+  "Firebase",
+  "Supabase",
+  "Git/GitHub",
+  "JavaScript",
+  "HTML/CSS",
 ];
 
 const funFacts = [
@@ -120,7 +176,7 @@ const About = () => {
                     transition={{ duration: 3, repeat: Infinity }}
                   >
                     <MapPin className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium">Lagos, Nigeria</span>
+                    <span className="text-sm font-medium">Calabar, Nigeria</span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -137,20 +193,23 @@ const About = () => {
                 </h1>
 
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  I'm a{" "}
+                  I am an experienced{" "}
                   <span className="text-foreground font-medium">
-                    Frontend Engineer
+                    Frontend Web Developer
                   </span>{" "}
-                  with a passion for building products that make a difference.
-                  With over 4 years of experience, I've worked with startups and
-                  enterprises to create scalable web applications.
+                  driven by building responsive, user-friendly web applications
+                  that balance both user needs and business goals. Over the past
+                  two years, I've worked with startups and small teams where I
+                  collaborated closely with developers, designers, and product
+                  managers to turn ideas into functional products.
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed">
-                  Beyond code, I believe in the power of great user experience.
-                  I obsess over the little details — smooth animations, fast
-                  load times, and interfaces that just
-                  <span className="italic"> feel right</span>.
+                  My technical toolkit includes React.js, Next.js, TypeScript,
+                  and Tailwind CSS for creating clean, interactive interfaces.
+                  Beyond coding, I actively contribute to design-to-code
+                  workflows, implementing Figma designs into production-ready
+                  applications.
                 </p>
 
                 {/* Fun facts */}
@@ -268,6 +327,92 @@ const About = () => {
                     </div>
                   </motion.div>
                 ))}
+              </div>
+            </motion.div>
+
+            {/* Technologies Section */}
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-2xl">🛠️</span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                  Technologies
+                </h2>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {technologies.map((tech, index) => (
+                  <motion.span
+                    key={tech}
+                    className="px-4 py-2 bg-card border border-border rounded-full text-sm font-medium text-foreground"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Certifications Section */}
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <Award className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                  Certifications
+                </h2>
+              </div>
+              <div className="space-y-3">
+                {certifications.map((cert, index) => (
+                  <motion.div
+                    key={cert}
+                    className="bg-card border border-border rounded-lg p-4 flex items-center gap-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-muted-foreground">{cert}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Education Section */}
+            <motion.div
+              className="mt-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <GraduationCap className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                  Education
+                </h2>
+              </div>
+              <div className="bg-card border border-border rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-foreground">
+                  B.A. Linguistics and Communication Studies
+                </h3>
+                <p className="text-primary font-medium">
+                  University of Calabar, Nigeria
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  2022 - Present
+                </p>
               </div>
             </motion.div>
           </div>
