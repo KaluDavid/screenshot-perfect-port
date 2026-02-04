@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { MapPin, Coffee, Headphones, Gamepad2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MapPin, Coffee, Headphones, Gamepad2, ExternalLink } from "lucide-react";
 import avatarImage from "@/assets/avatar.jpg";
 
 const AboutSection = () => {
@@ -111,25 +112,34 @@ const AboutSection = () => {
                 </div>
               </div>
 
-              {/* Resume CTA */}
+              {/* Links */}
               <motion.div
-                className="pt-4"
+                className="pt-4 flex flex-wrap gap-4"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
               >
-                <a
-                  href="#"
+                <Link
+                  to="/about"
                   className="inline-flex items-center gap-2 text-primary hover:underline underline-offset-4 font-medium group"
                 >
-                  <span>View my resume</span>
+                  <span>Read more about me</span>
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
                     →
                   </motion.span>
+                </Link>
+                <a
+                  href="https://docs.google.com/document/d/YOUR_RESUME_ID"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <span>View my resume</span>
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               </motion.div>
             </motion.div>
