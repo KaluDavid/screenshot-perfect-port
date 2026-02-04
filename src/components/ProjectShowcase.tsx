@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import projectEcommerce from "@/assets/project-ecommerce.jpg";
 import projectFintech from "@/assets/project-fintech.jpg";
 import projectHealthcare from "@/assets/project-healthcare.jpg";
@@ -15,6 +15,25 @@ const projects = [
 
 const ProjectShowcase = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Auto-scroll to end after component mounts
+    const scrollToEnd = () => {
+      const scrollWidth = container.scrollWidth - container.clientWidth;
+      container.scrollTo({
+        left: scrollWidth,
+        behavior: "smooth",
+      });
+    };
+
+    // Start auto-scroll after a small delay
+    const timeout = setTimeout(scrollToEnd, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <section className="py-16 overflow-hidden bg-muted/20">
@@ -36,13 +55,11 @@ const ProjectShowcase = () => {
         </motion.p>
       </div>
 
-      {/* Horizontal scrolling gallery */}
+      {/* Horizontal scrolling gallery - no drag, auto-scrolls */}
       <div className="relative">
-        <motion.div
+        <div
           ref={containerRef}
-          className="flex gap-6 px-4 py-8 overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
-          drag="x"
-          dragConstraints={{ left: -1000, right: 0 }}
+          className="flex gap-6 px-4 py-8 overflow-x-auto"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {projects.map((project, index) => (
@@ -63,7 +80,6 @@ const ProjectShowcase = () => {
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  draggable={false}
                 />
               </div>
               
@@ -75,17 +91,17 @@ const ProjectShowcase = () => {
               </motion.div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Fade edges */}
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint updated */}
       <div className="container mx-auto px-4 mt-4">
         <p className="text-xs text-muted-foreground text-center">
-          ← Drag to explore →
+          ✨ My creative snapshots
         </p>
       </div>
     </section>
