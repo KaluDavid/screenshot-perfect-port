@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Coffee, Headphones, Gamepad2, ExternalLink } from "lucide-react";
+ import { MapPin, Coffee, Headphones, Gamepad2 } from "lucide-react";
 import avatarImage from "@/assets/avatar.jpg";
 
 const AboutSection = () => {
@@ -11,8 +11,23 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-24">
+     <section id="about" className="py-24 relative overflow-hidden">
+       {/* Grid Background */}
+       <div className="absolute inset-0 bg-background">
+         <div 
+           className="absolute inset-0 opacity-[0.03]"
+           style={{
+             backgroundImage: `
+               linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
+               linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)
+             `,
+             backgroundSize: '40px 40px'
+           }}
+         />
+       </div>
+ 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+         <div className="relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -136,15 +151,21 @@ const AboutSection = () => {
                   href="https://docs.google.com/document/d/YOUR_RESUME_ID"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                   className="inline-flex items-center gap-2 text-primary hover:underline underline-offset-4 font-medium"
                 >
                   <span>View my resume</span>
-                  <ExternalLink className="w-4 h-4" />
+                   <motion.span
+                     animate={{ x: [0, 5, 0] }}
+                     transition={{ duration: 1.5, repeat: Infinity }}
+                   >
+                     →
+                   </motion.span>
                 </a>
               </motion.div>
             </motion.div>
           </div>
         </div>
+         </div>
       </div>
     </section>
   );
