@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { Play, X, Linkedin, FileText } from "lucide-react";
+ import { useState, useEffect } from "react";
+ import { Play, Linkedin, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,6 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+ import {
+   Carousel,
+   CarouselContent,
+   CarouselItem,
+   CarouselNext,
+   CarouselPrevious,
+   type CarouselApi,
+ } from "@/components/ui/carousel";
 
 interface Testimonial {
   id: number;
@@ -56,6 +64,16 @@ const TestimonialSection = () => {
   const [selectedTestimonial, setSelectedTestimonial] =
     useState<Testimonial | null>(null);
   const [showTranscript, setShowTranscript] = useState(false);
+   const [api, setApi] = useState<CarouselApi>();
+   const [current, setCurrent] = useState(0);
+ 
+   useEffect(() => {
+     if (!api) return;
+     setCurrent(api.selectedScrollSnap());
+     api.on("select", () => {
+       setCurrent(api.selectedScrollSnap());
+     });
+   }, [api]);
 
   const openVideoModal = (testimonial: Testimonial) => {
     setSelectedTestimonial(testimonial);
@@ -101,83 +119,117 @@ const TestimonialSection = () => {
           </motion.p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              className="group relative"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                {/* Video Thumbnail */}
-                <div
-                  className={`relative aspect-video bg-gradient-to-br ${testimonial.thumbnailColor} cursor-pointer`}
-                  onClick={() => openVideoModal(testimonial)}
-                >
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                    <motion.div
-                      className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Play className="w-6 h-6 text-foreground ml-1" />
-                    </motion.div>
-                  </div>
-
-                  {/* Placeholder video text */}
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <div className="bg-black/50 backdrop-blur-sm rounded-lg px-3 py-2">
-                      <p className="text-white text-xs">
-                        Video testimonial coming soon
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Info Section */}
-                <div className="p-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h3 className="font-semibold text-foreground">
-                        {testimonial.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {testimonial.role} at {testimonial.company}
-                      </p>
-                    </div>
-
-                    {/* LinkedIn Link */}
-                    <a
-                      href={testimonial.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-[#0077B5]/10 hover:bg-[#0077B5]/20 transition-colors"
-                      aria-label={`View ${testimonial.name}'s LinkedIn`}
-                    >
-                      <Linkedin className="w-4 h-4 text-[#0077B5]" />
-                    </a>
-                  </div>
-
-                  {/* Transcript Button */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="mt-3 w-full text-muted-foreground hover:text-foreground"
-                    onClick={() => openVideoModal(testimonial)}
-                  >
-                    <FileText className="w-4 h-4 mr-2" />
-                    View Transcript
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+         {/* Testimonials Carousel */}
+         <motion.div
+           className="max-w-4xl mx-auto"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+         >
+           <Carousel
+             setApi={setApi}
+             opts={{
+               align: "center",
+               loop: true,
+             }}
+             className="w-full"
+           >
+             <CarouselContent className="-ml-2 md:-ml-4">
+               {testimonials.map((testimonial) => (
+                 <CarouselItem key={testimonial.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
+                   <div className="group relative h-full">
+                     <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col">
+                       {/* Video Thumbnail */}
+                       <div
+                         className={`relative aspect-video bg-gradient-to-br ${testimonial.thumbnailColor} cursor-pointer`}
+                         onClick={() => openVideoModal(testimonial)}
+                       >
+                         {/* Play Button Overlay */}
+                         <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                           <motion.div
+                             className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg"
+                             whileHover={{ scale: 1.1 }}
+                             whileTap={{ scale: 0.95 }}
+                           >
+                             <Play className="w-5 h-5 text-foreground ml-0.5" />
+                           </motion.div>
+                         </div>
+ 
+                         {/* Placeholder video text */}
+                         <div className="absolute bottom-3 left-3 right-3">
+                           <div className="bg-black/50 backdrop-blur-sm rounded-lg px-3 py-2">
+                             <p className="text-white text-xs">
+                               Video testimonial coming soon
+                             </p>
+                           </div>
+                         </div>
+                       </div>
+ 
+                       {/* Info Section */}
+                       <div className="p-4 flex-1 flex flex-col">
+                         <div className="flex items-start justify-between gap-2">
+                           <div>
+                             <h3 className="font-semibold text-foreground">
+                               {testimonial.name}
+                             </h3>
+                             <p className="text-sm text-muted-foreground">
+                               {testimonial.role} at {testimonial.company}
+                             </p>
+                           </div>
+ 
+                           {/* LinkedIn Link */}
+                           <a
+                             href={testimonial.linkedinUrl}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             className="p-2 rounded-full bg-[#0077B5]/10 hover:bg-[#0077B5]/20 transition-colors"
+                             aria-label={`View ${testimonial.name}'s LinkedIn`}
+                           >
+                             <Linkedin className="w-4 h-4 text-[#0077B5]" />
+                           </a>
+                         </div>
+ 
+                         {/* Transcript Button */}
+                         <Button
+                           variant="ghost"
+                           size="sm"
+                           className="mt-3 w-full text-muted-foreground hover:text-foreground mt-auto"
+                           onClick={() => openVideoModal(testimonial)}
+                         >
+                           <FileText className="w-4 h-4 mr-2" />
+                           View Transcript
+                         </Button>
+                       </div>
+                     </div>
+                   </div>
+                 </CarouselItem>
+               ))}
+             </CarouselContent>
+             
+             {/* Custom Navigation */}
+             <div className="flex items-center justify-center gap-4 mt-8">
+               <CarouselPrevious className="static translate-y-0 h-10 w-10" />
+               
+               {/* Dots Indicator */}
+               <div className="flex gap-2">
+                 {testimonials.map((_, index) => (
+                   <button
+                     key={index}
+                     className={`w-2 h-2 rounded-full transition-all ${
+                       index === current
+                         ? "bg-foreground w-6"
+                         : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                     }`}
+                     onClick={() => api?.scrollTo(index)}
+                     aria-label={`Go to slide ${index + 1}`}
+                   />
+                 ))}
+               </div>
+               
+               <CarouselNext className="static translate-y-0 h-10 w-10" />
+             </div>
+           </Carousel>
+         </motion.div>
       </div>
 
       {/* Video Modal */}
