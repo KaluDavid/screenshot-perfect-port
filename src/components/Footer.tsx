@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
+ import Logo from "./Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,12 +11,7 @@ const Footer = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Logo / Name */}
-            <motion.div
-              className="text-xl font-bold text-foreground"
-              whileHover={{ scale: 1.05 }}
-            >
-              David Kalu
-            </motion.div>
+             <Logo />
 
             {/* Built with love */}
             <div className="flex items-center gap-2 text-muted-foreground text-sm">
